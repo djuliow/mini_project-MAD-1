@@ -1,111 +1,173 @@
-import { View, Text, StyleSheet, Image, ScrollView, Pressable } from 'react-native';
-import React from 'react';
+import { View, Text, StyleSheet, ScrollView, Pressable, Linking, Modal } from 'react-native';
+import { Image } from 'expo-image';
+import React, { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 export default function Profile() {
+  const [modalVisible, setModalVisible] = useState(false);
+  const router = useRouter();
+
+  const openLink = (url: string) => {
+    Linking.openURL(url).catch((err) => console.error("Couldn't load page", err));
+  };
+
   return (
-    <ScrollView style={styles.container}>
-      {/* Header Background */}
-      <View style={styles.headerBackground} />
-      
-      <View style={styles.contentContainer}>
-        {/* Profile Image Area */}
-        <View style={styles.profileSection}>
-          <View style={styles.avatarContainer}>
-            <Image 
-              source={{ uri: 'https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortFlat&accessoriesType=Sunglasses&hairColor=Black&facialHairType=BeardLight&clotheType=Hoodie&clotheColor=Blue03&eyeType=Happy&eyebrowType=Default&mouthType=Smile&skinColor=Light' }} 
-              style={styles.avatar}
-            />
-          </View>
-          <Text style={styles.name}>Julio Derill Juan Weol</Text>
-          <Text style={styles.title}>Mobile App Developer</Text>
-          <Text style={styles.bio}>
-            Passionate about creating intuitive and performant mobile experiences. 
-            Loves React Native and clean code.
-          </Text>
-        </View>
-
-        {/* Stats / Quick Info */}
-        <View style={styles.statsContainer}>
-          <View style={styles.statItem}>
-            <Text style={styles.statNumber}>2+</Text>
-            <Text style={styles.statLabel}>Years Exp</Text>
-          </View>
-          <View style={styles.divider} />
-          <View style={styles.statItem}>
-            <Text style={styles.statNumber}>10+</Text>
-            <Text style={styles.statLabel}>Projects</Text>
-          </View>
-          <View style={styles.divider} />
-          <View style={styles.statItem}>
-            <Text style={styles.statNumber}>5</Text>
-            <Text style={styles.statLabel}>Clients</Text>
-          </View>
-        </View>
-
-        {/* Action Buttons (Socials) */}
-        <View style={styles.socialRow}>
-          <Pressable 
-            style={({ pressed }) => [
-              styles.socialBtn, 
-              { backgroundColor: '#171515' },
-              pressed && styles.btnPressed
-            ]}
-          >
-            <Ionicons name="logo-github" size={20} color="#fff" />
-          </Pressable>
-          <Pressable 
-            style={({ pressed }) => [
-              styles.socialBtn, 
-              { backgroundColor: '#0A66C2' },
-              pressed && styles.btnPressed
-            ]}
-          >
-            <Ionicons name="logo-linkedin" size={20} color="#fff" />
-          </Pressable>
-          <Pressable 
-            style={({ pressed }) => [
-              styles.socialBtn, 
-              { backgroundColor: '#E4405F' },
-              pressed && styles.btnPressed
-            ]}
-          >
-            <Ionicons name="logo-instagram" size={20} color="#fff" />
-          </Pressable>
-        </View>
-
-        {/* Skills Section */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Skills</Text>
-          <View style={styles.skillsContainer}>
-            {['React Native', 'TypeScript', 'JavaScript', 'UI/UX Design', 'Git', 'Rest API'].map((skill, index) => (
-              <View key={index} style={styles.skillChip}>
-                <Text style={styles.skillText}>{skill}</Text>
+    <>
+      <ScrollView style={styles.container}>
+        {/* Header Background Image */}
+        <Image 
+          source={require('../../assets/images/latar.jpg')} 
+          style={styles.headerBackground}
+          contentFit="cover"
+        />
+        
+        <View style={styles.contentContainer}>
+          {/* Profile Image Area */}
+          <View style={styles.profileSection}>
+            <Pressable 
+              style={styles.avatarContainer}
+              onPress={() => setModalVisible(true)}
+            >
+              <Image 
+                source={require('../../assets/images/fotoProfil.jpg')} 
+                style={styles.avatar}
+                contentFit="cover"
+                transition={500}
+              />
+              <View style={styles.editIconBadge}>
+                <Ionicons name="expand-outline" size={16} color="#fff" />
               </View>
-            ))}
+            </Pressable>
+            <Text style={styles.name}>Julio Derill Juan Weol</Text>
+            <Text style={styles.title}>AI & Full-stack Developer</Text>
+            <Text style={styles.bio}>
+              Spesialis aplikasi AI & sistem manajemen terpadu. Menguasai integrasi Gemini API, Machine Learning (k-NN), dan teknologi modern untuk solusi digital inovatif.
+            </Text>
           </View>
-        </View>
 
-        {/* Contact Info */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Contact</Text>
-          <View style={styles.contactItem}>
-            <Ionicons name="mail" size={20} color="#64748b" />
-            <Text style={styles.contactText}>derill@example.com</Text>
+          {/* Stats / Quick Info */}
+          <View style={styles.statsContainer}>
+            <View style={styles.statItem}>
+              <Text style={styles.statNumber}>1+</Text>
+              <Text style={styles.statLabel}>Years Exp</Text>
+            </View>
+            <View style={styles.divider} />
+            <View style={styles.statItem}>
+              <Text style={styles.statNumber}>4</Text>
+              <Text style={styles.statLabel}>Projects</Text>
+            </View>
+            <View style={styles.divider} />
+            <View style={styles.statItem}>
+              <Text style={styles.statNumber}>4</Text>
+              <Text style={styles.statLabel}>Clients</Text>
+            </View>
           </View>
-          <View style={styles.contactItem}>
-            <Ionicons name="call" size={20} color="#64748b" />
-            <Text style={styles.contactText}>+62 812 3456 7890</Text>
+
+          {/* Portfolio Button */}
+          <Pressable 
+            style={({ pressed }) => [
+              styles.portfolioBtn,
+              pressed && styles.portfolioBtnPressed
+            ]}
+            onPress={() => router.push('/tabs/experience')}
+          >
+            <Text style={styles.portfolioBtnText}>View Full Portfolio</Text>
+            <Ionicons name="arrow-forward" size={18} color="#fff" />
+          </Pressable>
+
+                  {/* Action Buttons (Socials) */}
+                  <View style={styles.socialRow}>
+                    <Pressable 
+                      onPress={() => openLink('https://github.com/djuliow')}
+                      style={({ pressed }) => [
+                        styles.socialBtn, 
+                        { backgroundColor: '#171515' },
+                        pressed && styles.btnPressed
+                      ]}
+                    >
+                      <Ionicons name="logo-github" size={20} color="#fff" />
+                    </Pressable>
+                    <Pressable 
+                      onPress={() => openLink('https://www.linkedin.com/in/julio-derill-juan-weol-4b358a387/')}
+                      style={({ pressed }) => [
+                        styles.socialBtn, 
+                        { backgroundColor: '#0A66C2' },
+                        pressed && styles.btnPressed
+                      ]}
+                    >
+                      <Ionicons name="logo-linkedin" size={20} color="#fff" />
+                    </Pressable>
+                    <Pressable 
+                      style={({ pressed }) => [
+                        styles.socialBtn, 
+                        { backgroundColor: '#E4405F' },
+                        pressed && styles.btnPressed
+                      ]}
+                    >
+                      <Ionicons name="logo-instagram" size={20} color="#fff" />
+                    </Pressable>
           </View>
-          <View style={styles.contactItem}>
-            <Ionicons name="location" size={20} color="#64748b" />
-            <Text style={styles.contactText}>Jakarta, Indonesia</Text>
+
+          {/* Skills Section */}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Skills</Text>
+            <View style={styles.skillsContainer}>
+              {['React Native', 'Gemini API', 'Python', 'FastAPI', 'Tailwind CSS', 'ReactJS', 'Supabase', 'Streamlit', 'Machine Learning', 'WhatsApp API'].map((skill, index) => (
+                <View key={index} style={styles.skillChip}>
+                  <Text style={styles.skillText}>{skill}</Text>
+                </View>
+              ))}
+            </View>
+          </View>
+
+          {/* Contact Info */}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Contact</Text>
+            <View style={styles.contactItem}>
+              <Ionicons name="mail" size={20} color="#64748b" />
+              <Text style={styles.contactText}>weoljulioderill@example.com</Text>
+            </View>
+            <View style={styles.contactItem}>
+              <Ionicons name="call" size={20} color="#64748b" />
+              <Text style={styles.contactText}>+62 858 2390 5410</Text>
+            </View>
+            <View style={styles.contactItem}>
+              <Ionicons name="location" size={20} color="#64748b" />
+              <Text style={styles.contactText}>Manado, Indonesia</Text>
+            </View>
           </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+
+      {/* Full Screen Image Modal */}
+      <Modal
+        visible={modalVisible}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <Pressable style={styles.modalBackground} onPress={() => setModalVisible(false)} />
+          
+          <View style={styles.modalContent}>
+            <Image 
+              source={require('../../assets/images/fotoProfil.jpg')} 
+              style={styles.fullImage} 
+              contentFit="cover" // Changed to cover to force cropping
+              transition={500}
+            />
+            
+            <Pressable style={styles.closeButton} onPress={() => setModalVisible(false)}>
+              <Ionicons name="close" size={28} color="#fff" />
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+    </>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -113,15 +175,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   headerBackground: {
-    height: 150,
-    backgroundColor: '#1e293b',
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
+    height: 180,
+    backgroundColor: '#1a1a1a', // Fallback color
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 10,
   },
   contentContainer: {
     paddingHorizontal: 20,
     marginTop: -75, // Pull content up over the header
-    paddingBottom: 40,
+    paddingBottom: 80, // Increased padding for better spacing
   },
   profileSection: {
     alignItems: 'center',
@@ -157,7 +223,7 @@ const styles = StyleSheet.create({
   },
   bio: {
     textAlign: 'center',
-    color: '#64748b',
+    color: '#334155', // Darker text for better readability
     marginTop: 12,
     lineHeight: 22,
     fontSize: 14,
@@ -191,6 +257,30 @@ const styles = StyleSheet.create({
     width: 1,
     backgroundColor: '#e2e8f0',
     height: '100%',
+  },
+  portfolioBtn: {
+    backgroundColor: '#171717', // Black
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 14,
+    borderRadius: 16,
+    marginBottom: 24,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 4,
+    gap: 8,
+  },
+  portfolioBtnPressed: {
+    opacity: 0.9,
+    transform: [{ scale: 0.98 }],
+  },
+  portfolioBtnText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   socialRow: {
     flexDirection: 'row',
@@ -229,15 +319,15 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   skillChip: {
-    backgroundColor: '#e0f2fe',
+    backgroundColor: '#f3f4f6', // Light Gray
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#bae6fd',
+    borderColor: '#e5e7eb',
   },
   skillText: {
-    color: '#0284c7',
+    color: '#1f2937', // Dark Gray Text
     fontWeight: '600',
     fontSize: 14,
   },
@@ -254,4 +344,50 @@ const styles = StyleSheet.create({
     color: '#475569',
     fontSize: 15,
   },
+  // Edit Icon for Avatar
+  editIconBadge: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    backgroundColor: '#171717', // Black
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#fff',
+  },
+  // Modal Styles
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.9)',
+  },
+  modalBackground: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+  modalContent: {
+    width: '90%',
+    height: '60%', // Reduced height to create more space top/bottom
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  fullImage: {
+    width: '100%',
+    height: '100%',
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 40,
+    right: 20,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    padding: 8,
+    borderRadius: 20,
+  }
 });

@@ -8,7 +8,7 @@ const projects = [
   {
     title: 'CartaAI',
     description: 'Platform undangan digital berbasis AI. Pengguna dapat membuat desain dan konten undangan unik cukup dengan memberikan prompt teks yang akan diproses oleh Gemini API.',
-    tags: ['ReactJS', 'FastAPI', 'Gemini API', 'Supabase', 'Python'],
+    tags: ['ReactJS', 'Tailwind CSS', 'FastAPI', 'Gemini API', 'Supabase'],
     status: 'Active',
     color: '#3b82f6', // Blue
     images: [require('../../assets/images/project1.jpg')]
@@ -16,7 +16,7 @@ const projects = [
   {
     title: 'Sistem Informasi Manajemen Klinik Sentosa',
     description: 'Sistem manajemen klinik terpadu (Multi-Role) mencakup: Dashboard Dokter (Diagnosa & Resep Digital), Farmasi (Stok & Verifikasi), Kasir Otomatis (Biaya Jasa + Obat), serta Dashboard Kepala Klinik untuk laporan pendapatan dan kinerja operasional.',
-    tags: ['Vite (React)', 'FastAPI', 'SQLite', 'Python'],
+    tags: ['Vite (React)', 'Tailwind CSS', 'FastAPI', 'SQLite', 'Python'],
     status: 'Completed',
     color: '#f59e0b', // Amber
     images: [require('../../assets/images/project2.jpg')]
@@ -94,12 +94,12 @@ const skillGroups = [
   {
     name: 'AI & Machine Learning',
     icon: 'brain-outline',
-    skills: ['Gemini API', 'k-NN Algorithm', 'LLM', 'Machine Learning', 'Transformers']
+    skills: ['Gemini API', 'k-NN Algorithm', 'LLM', 'Machine Learning', 'Transformers']       
   },
   {
     name: 'Frontend & Integrations',
     icon: 'code-slash-outline',
-    skills: ['React Native', 'ReactJS (Vite)', 'Streamlit', 'WhatsApp API', 'Fonnte']
+    skills: ['React Native', 'ReactJS (Vite)', 'Tailwind CSS', 'Streamlit', 'WhatsApp API', 'Fonnte']
   },
   {
     name: 'Backend & Database',
@@ -112,7 +112,6 @@ const skillGroups = [
     skills: ['Data Analytics', 'AWS', 'Git', 'Visual Studio Code']
   }
 ];
-
 const sections = [
   { title: 'Featured Projects', data: projects, type: 'project', icon: 'code-working', color: '#ef4444' },
   { title: 'Achievement & Certifications', data: certificates, type: 'certificate', icon: 'ribbon', color: '#f59e0b' },
@@ -287,10 +286,11 @@ const styles = StyleSheet.create({
     paddingBottom: 60,
   },
   headerTitle: {
-    fontSize: 28,
+    fontSize: 26,
     fontWeight: 'bold',
     color: '#1e293b',
     marginBottom: 20,
+    textAlign: 'center',
   },
   sectionHeader: {
     flexDirection: 'row',

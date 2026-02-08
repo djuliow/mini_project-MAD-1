@@ -13,7 +13,7 @@ export default function Education() {
     },
     {
       school: 'SMA Unklab',
-      degree: 'Jurusan IPA',
+      degree: 'Sekolah Menengah Atas\nJurusan IPA',
       year: '2019 - 2022',
       icon: 'book',
       color: '#10b981',
@@ -122,10 +122,10 @@ const styles = StyleSheet.create({
   },
   timelineLine: {
     position: 'absolute',
-    left: 40, // Posisi di tengah ikon (width 50 / 2 + padding 16)
+    left: 40, 
     bottom: -20,
-    width: 2,
+    width: 3,
     height: 20,
-    backgroundColor: '#e2e8f0',
+    backgroundColor: '#cbd5e1',
   }
 });
