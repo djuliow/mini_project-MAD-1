@@ -17,7 +17,7 @@ export default function Profile() {
               style={styles.avatar}
             />
           </View>
-          <Text style={styles.name}>Derill</Text>
+          <Text style={styles.name}>Julio Derill Juan Weol</Text>
           <Text style={styles.title}>Mobile App Developer</Text>
           <Text style={styles.bio}>
             Passionate about creating intuitive and performant mobile experiences. 
